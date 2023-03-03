@@ -16,6 +16,6 @@ public class Login {
     @NotBlank(message = "User Id cannot be blank.")
     @NotEmpty(message = "User Id cannot be empty.")
     private String userId;
-    
+
     private String password;
 }
