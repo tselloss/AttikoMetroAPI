@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Data
 @Getter
 @Setter
@@ -38,4 +40,7 @@ public class UserRegistration {
         this.email = email;
     }
 
+    public UserRegistration(Integer customer_id, String username, LocalDateTime rightNow) {
+
+    }
 }
