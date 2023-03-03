@@ -10,7 +10,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Login {
+public class UserLogin {
 
     @NotNull(message = "User Id can't be null...")
     @NotBlank(message = "User Id cannot be blank.")
