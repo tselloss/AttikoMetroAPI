@@ -20,7 +20,6 @@ public class CurrentUser {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer currentSessionId;
 
-
     private Integer customerId;
     private String uuid;
     private LocalDateTime dateTime;
