@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface CurrentUserSessionRepo extends JpaRepository<CurrentUserSession, Integer> {
 
-    public Optional<CurrentUserSession> findByCustomerId(Integer customerId) ;
+    public Optional<CurrentUserSession> findByUserId(Integer userId) ;
 
     public Optional<CurrentUserSession> findByUuid(String uuid) ;
 

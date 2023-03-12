@@ -37,8 +37,8 @@ public class LoginServiceImpl implements LoginService {
             throw new CustomerException("User with Mobile number NOT FOUND: "+user.getUserId());
         }
         RegisterUser currentRegisterUser = opt.get();
-        Integer customerId = currentRegisterUser.getCustomerId();
-        Optional<CurrentUserSession> currentUserOptional = currentUserSessionRepo.findByCustomerId(customerId);
+        Integer customerId = currentRegisterUser.getUserId();
+        Optional<CurrentUserSession> currentUserOptional = currentUserSessionRepo.findByUserId(customerId);
         if(currentUserOptional.isPresent()) {
             throw new UserException("User: " + user.getUserId()+" has already logged in!!!");
         }
@@ -63,7 +63,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public String signOut(String key) throws UserException, LoginException {
-        CurrentUserSession userSession = currentCustomerService.getCurrentCustomerSession(key);
+        CurrentUserSession userSession = currentCustomerService.getCurrentUserSession(key);
 
         if(userSession != null) {
 
@@ -94,7 +94,7 @@ public class LoginServiceImpl implements LoginService {
 
         CurrentUserSession currentUserSession = opt.get();
 
-        Optional<RegisterUser> currentCustomerOpt = userRepo.findById(currentUserSession.getCustomerId()) ;
+        Optional<RegisterUser> currentCustomerOpt = userRepo.findById(currentUserSession.getUserId()) ;
 
         RegisterUser currentRegisterUser = currentCustomerOpt.get();
 

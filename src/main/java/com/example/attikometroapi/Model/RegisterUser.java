@@ -14,7 +14,7 @@ public class RegisterUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer customerId;
+    private Integer userId;
 
     @Size(min = 5, max = 15, message = "Username should be min 5 and max 15 Characters!")
     private String username;

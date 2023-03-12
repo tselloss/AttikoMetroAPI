@@ -20,13 +20,13 @@ public class CurrentUserSession {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer currentSessionId;
-    private Integer customerId;
+    private Integer userId;
     private String uuid;
     private LocalDateTime dateTime;
 
-    public CurrentUserSession(Integer customerId, String uuid, LocalDateTime dateTime) {
+    public CurrentUserSession(Integer userId, String uuid, LocalDateTime dateTime) {
         super();
-        this.customerId = customerId;
+        this.userId = userId;
         this.uuid = uuid;
         this.dateTime = dateTime;
     }

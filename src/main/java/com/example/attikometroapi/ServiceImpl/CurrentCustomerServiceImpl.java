@@ -21,7 +21,7 @@ public class CurrentCustomerServiceImpl implements CurrentCustomerService {
     private UserRepo userRepo;
 
     @Override
-    public CurrentUserSession getCurrentCustomerSession(String key) throws LoginException {
+    public CurrentUserSession getCurrentUserSession(String key) throws LoginException {
         Optional<CurrentUserSession> currentUser = currentUserSessionRepo.findByUuid(key);
         if(!currentUser.isPresent()) {
             throw new  LoginException("User has not logged in");
@@ -30,21 +30,21 @@ public class CurrentCustomerServiceImpl implements CurrentCustomerService {
     }
 
     @Override
-    public Integer getCurrentCustomerId(String key) throws LoginException {
+    public Integer getCurrentUserId(String key) throws LoginException {
         Optional<CurrentUserSession> currentUser = currentUserSessionRepo.findByUuid(key);
         if(!currentUser.isPresent()) {
             throw new  LoginException("User has not logged in");
         }
-        return currentUser.get().getCustomerId();
+        return currentUser.get().getUserId();
     }
 
     @Override
-    public RegisterUser getCustomerDetails(String key) throws LoginException {
+    public RegisterUser getUserDetails(String key) throws LoginException {
         Optional<CurrentUserSession> currentUser = currentUserSessionRepo.findByUuid(key);
         if(!currentUser.isPresent()) {
             throw new  LoginException("User has not logged in");
         }
-        Integer customerId = currentUser.get().getCustomerId();
+        Integer customerId = currentUser.get().getUserId();
         return userRepo.findById(customerId).get();
     }
 

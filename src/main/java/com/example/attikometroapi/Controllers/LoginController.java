@@ -34,15 +34,15 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity addUser(@RequestBody LoginDTO loginDTO) throws Exception {
         Map<String, String> model = new HashMap<>();
-        RegisterUser savedRegisterUser = userService.getCustomerDetailsByUsername(loginDTO.getUsername());
+        RegisterUser savedRegisterUser = userService.getUserDetailsByUsername(loginDTO.getUsername());
         if (!savedRegisterUser.getPassword().equals(loginDTO.getPassword())) {
             throw new Exception("Invalid username/password");
         }
         model.put("message","Logged in Successfully");
         model.put("token", savedRegisterUser.getUsername());
-        model.put("customer_id", String.valueOf(savedRegisterUser.getCustomerId()));
+        model.put("customer_id", String.valueOf(savedRegisterUser.getUserId()));
         LocalDateTime rightNow = LocalDateTime.now();
-        CurrentUserSession currentUserSession= new CurrentUserSession(loginDTO.getCustomer_id(), loginDTO.getUsername(),rightNow );
+        CurrentUserSession currentUserSession= new CurrentUserSession(loginDTO.getUser_id(), loginDTO.getUsername(),rightNow );
         currentUserSessionRepo.save(currentUserSession);
         return new ResponseEntity<>(model, HttpStatus.OK);
     }

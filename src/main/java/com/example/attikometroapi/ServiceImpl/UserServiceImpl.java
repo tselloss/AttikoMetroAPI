@@ -28,29 +28,29 @@ public class UserServiceImpl implements UserService {
     CurrentUserSessionRepo currentUserSessionRepo;
 
     @Override
-    public RegisterUser addCustomer(RegisterUser cust) throws CustomerException {
-       Optional<RegisterUser> opt = userRepo.findByUsername(cust.getUsername()) ;
+    public RegisterUser addUser(RegisterUser registerUser) throws CustomerException {
+       Optional<RegisterUser> opt = userRepo.findByUsername(registerUser.getUsername()) ;
         if(opt.isPresent()) {
             throw new CustomerException("RegisterUser already Exist With this Username");
         }
 
-        return userRepo.save(cust);
+        return userRepo.save(registerUser);
     }
 
     @Override
-    public RegisterUser updateCustomer(RegisterUser cust, String key) throws CustomerException, LoginException {
+    public RegisterUser updateUser(RegisterUser registerUser, String key) throws CustomerException, LoginException {
 
-        RegisterUser registerUserDetails = currentCustomerService.getCustomerDetails(key) ;
+        RegisterUser registerUserDetails = currentCustomerService.getUserDetails(key) ;
 
         if(registerUserDetails == null) {
             throw new LoginException("No user Found | Login first");
-        }else if( cust.getMobile_number().toCharArray().length != 10 ){
+        }else if( registerUser.getMobile_number().toCharArray().length != 10 ){
 
             throw new CustomerException("Mobile Number can only be of 10 digit");
         }
 
-        if(cust.getCustomerId() == registerUserDetails.getCustomerId()) {
-            return userRepo.save(cust) ;
+        if(registerUser.getUserId() == registerUserDetails.getUserId()) {
+            return userRepo.save(registerUser) ;
         }
         else {
             throw new CustomerException("Can't change UserID!") ;
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 
     }
     @Override
-    public RegisterUser getCustomerDetailsByUsername(String username) throws Exception {
+    public RegisterUser getUserDetailsByUsername(String username) throws Exception {
         return userRepo.findByUsername(username)
                 .orElseThrow(
                         () -> new Exception("RegisterUser not found with username: " + username)
@@ -67,55 +67,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public RegisterUser removeCustomer(RegisterUser cust, String key) throws CustomerException, LoginException {
-
-//		Optional<RegisterUser> opt = customerDao.findById(cust.getCustomerId());
-//
-//		if(opt.isEmpty()) {
-//			throw new CustomerException("RegisterUser is not registered");
-//		}
-
-//        RegisterUser currentCustomer = currentUserSessionService.getCustomerDetails(key);
-//
-//        if(currentCustomer != null) {
-//
-//            if(cust.getCustomerId() == currentCustomer.getCustomerId()) {
-//
-//                customerRepo.delete(cust);
-//
-//                Optional<CurrentUserSession> opt = currentUserSessionDao.findByUuid(key) ;
-//
-//                CurrentUserSession currentSession = opt.get();
-//
-//                currentUserSessionDao.delete(currentSession);
-//                return cust;
-//
-//
-//            }
-//            else {
-//                throw new CustomerException("Invalid RegisterUser ID") ;
-//            }
-//
-//        }
-//        else {
-//            throw new CustomerException("Invalid UUID key");
-//        }
-//
-
-
+    public RegisterUser removeUser(RegisterUser registerUser, String key) throws CustomerException, LoginException {
         return null;
     }
 
     @Override
-    public RegisterUser viewCustomer(Integer customerId) throws CustomerException {
-        Optional<RegisterUser> cust = userRepo.findById(customerId);
+    public RegisterUser viewUser(Integer userId) throws CustomerException {
+        Optional<RegisterUser> cust = userRepo.findById(userId);
         cust.orElseThrow(()-> new CustomerException("RegisterUser doesn't found..."));
         return cust.get();
 
     }
 
     @Override
-    public List<RegisterUser> viewAllCustomer() throws CustomerException {
+    public List<RegisterUser> viewAllUser() throws CustomerException {
         return userRepo.findAll();
     }
 

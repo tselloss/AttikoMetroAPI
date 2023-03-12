@@ -5,9 +5,9 @@ import com.example.attikometroapi.Model.CurrentUserSession;
 import com.example.attikometroapi.Model.RegisterUser;
 
 public interface CurrentCustomerService {
-    public CurrentUserSession getCurrentCustomerSession(String key) throws LoginException;
-    public Integer getCurrentCustomerId(String key) throws LoginException;
-    public RegisterUser getCustomerDetails(String key) throws LoginException;
+    public CurrentUserSession getCurrentUserSession(String key) throws LoginException;
+    public Integer getCurrentUserId(String key) throws LoginException;
+    public RegisterUser getUserDetails(String key) throws LoginException;
 }
 
 

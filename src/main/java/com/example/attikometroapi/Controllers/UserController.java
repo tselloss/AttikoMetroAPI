@@ -21,35 +21,35 @@ public class UserController {
     private UserService userService;
 
 
-    @PostMapping("/customers")
-    public ResponseEntity<RegisterUser> addCustomerHandler(@Valid @RequestBody RegisterUser registerUser) throws CustomerException{
-        RegisterUser addedRegisterUser = userService.addCustomer(registerUser);
+    @PostMapping("/users")
+    public ResponseEntity<RegisterUser> addUserHandler(@Valid @RequestBody RegisterUser registerUser) throws CustomerException{
+        RegisterUser addedRegisterUser = userService.addUser(registerUser);
        // String message = "Dear "+registerUser.getUsername() +",\n\nThank you for registering with our online cinema movie booking application. We look forward to bringing you the best movie experience.\n\nSincerely,\nThe Online Cinema Movie Booking Shop team";
       //  emailSenderService.sendEmail(registerUser.getEmail(),"Registry confirmation",message);
         return new ResponseEntity<RegisterUser>(addedRegisterUser, HttpStatus.CREATED);
     }
 
-    @PutMapping("/customers/{key}")
-    public ResponseEntity<RegisterUser> updateCustomerHandler(@PathVariable("key") String key, @RequestBody RegisterUser registerUser) throws LoginException, CustomerException{
-        RegisterUser updatedRegisterUser = userService.updateCustomer(registerUser, key);
+    @PutMapping("/users/{key}")
+    public ResponseEntity<RegisterUser> updateUserHandler(@PathVariable("key") String key, @RequestBody RegisterUser registerUser) throws LoginException, CustomerException{
+        RegisterUser updatedRegisterUser = userService.updateUser(registerUser, key);
         return new ResponseEntity<RegisterUser>(updatedRegisterUser, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/customers/{key}")
-    public ResponseEntity<RegisterUser> removeCustomerHandler(@PathVariable("key") String key, @RequestBody RegisterUser registerUser) throws CustomerException, LoginException{
-        RegisterUser deletedRegisterUser = userService.removeCustomer(registerUser, key);
+    @DeleteMapping("/users/{key}")
+    public ResponseEntity<RegisterUser> removeUserHandler(@PathVariable("key") String key, @RequestBody RegisterUser registerUser) throws CustomerException, LoginException{
+        RegisterUser deletedRegisterUser = userService.removeUser(registerUser, key);
         return new ResponseEntity<RegisterUser>(deletedRegisterUser, HttpStatus.OK);
     }
 
-    @GetMapping("/customers/{customerid}")
-    public ResponseEntity<RegisterUser> getCustomerHandler(@PathVariable("customerid") Integer customerId) throws CustomerException{
-        RegisterUser existingRegisterUser = userService.viewCustomer(customerId);
+    @GetMapping("/users/{userid}")
+    public ResponseEntity<RegisterUser> getUserHandler(@PathVariable("user_id") Integer userId) throws CustomerException{
+        RegisterUser existingRegisterUser = userService.viewUser(userId);
         return new ResponseEntity<RegisterUser>(existingRegisterUser, HttpStatus.OK);
     }
 
-    @GetMapping("/getallcustomers")
-    public ResponseEntity<List<RegisterUser>> getAllCustomers() throws CustomerException {
-        List<RegisterUser> registerUsers = userService.viewAllCustomer();
+    @GetMapping("/getallusers")
+    public ResponseEntity<List<RegisterUser>> getAllUser() throws CustomerException {
+        List<RegisterUser> registerUsers = userService.viewAllUser();
         return new ResponseEntity<List<RegisterUser>>(registerUsers, HttpStatus.OK);
     }
 }

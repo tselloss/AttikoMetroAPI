@@ -5,22 +5,22 @@ public class LoginDTO {
     private String username;
     private String password;
 
-    public Integer getCustomer_id() {
-        return customer_id;
+    public Integer getUser_id() {
+        return user_id;
     }
 
-    public void setCustomer_id(Integer customer_id) {
-        this.customer_id = customer_id;
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
     }
 
-    private Integer customer_id;
+    private Integer user_id;
     public LoginDTO() {
     }
 
-    public LoginDTO(String username, String password, Integer customer_id) {
+    public LoginDTO(String username, String password, Integer user_id) {
         this.username = username;
         this.password = password;
-        this.customer_id=customer_id;
+        this.user_id = user_id;
     }
 
     public String getUsername() {
