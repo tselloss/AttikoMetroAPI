@@ -1,5 +1,6 @@
 package com.example.attikometroapi.Model;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,19 +13,18 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class CurrentUser {
+@AllArgsConstructor
+public class CurrentUserSession {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer currentSessionId;
-
     private Integer customerId;
     private String uuid;
     private LocalDateTime dateTime;
 
-    public CurrentUser(Integer customerId, String uuid, LocalDateTime dateTime) {
+    public CurrentUserSession(Integer customerId, String uuid, LocalDateTime dateTime) {
         super();
         this.customerId = customerId;
         this.uuid = uuid;

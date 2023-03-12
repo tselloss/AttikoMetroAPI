@@ -1,10 +1,13 @@
 package com.example.attikometroapi.Controllers;
 
 import com.example.attikometroapi.DTO.LoginDTO;
-import com.example.attikometroapi.Model.UserRegistration;
-import com.example.attikometroapi.Repository.UserRegistrationRepo;
-import com.example.attikometroapi.Service.UserLoginService;
-import com.example.attikometroapi.Service.UserRegistrationService;
+import com.example.attikometroapi.Exceptions.LoginException;
+import com.example.attikometroapi.Exceptions.UserException;
+import com.example.attikometroapi.Model.CurrentUserSession;
+import com.example.attikometroapi.Model.RegisterUser;
+import com.example.attikometroapi.Repository.CurrentUserSessionRepo;
+import com.example.attikometroapi.Service.UserService;
+import com.example.attikometroapi.Service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,36 +22,34 @@ import java.util.Map;
 @RequestMapping("/users")
 public class LoginController {
 
-    @Autowired
-    private UserLoginService loginService;
 
     @Autowired
-    private UserRegistrationService userRegistrationService;
+    private LoginService loginService;
+
     @Autowired
-    private UserRegistrationRepo userRegistrationRepo;
+    private UserService userService;
+    @Autowired
+    private CurrentUserSessionRepo currentUserSessionRepo;
 
     @PostMapping("/login")
     public ResponseEntity addUser(@RequestBody LoginDTO loginDTO) throws Exception {
         Map<String, String> model = new HashMap<>();
-        UserRegistration savedUser = userRegistrationService.getUserDetailsByUsername(loginDTO.getUsername());
-        if (!savedUser.getPassword().equals(loginDTO.getPassword())) {
+        RegisterUser savedRegisterUser = userService.getCustomerDetailsByUsername(loginDTO.getUsername());
+        if (!savedRegisterUser.getPassword().equals(loginDTO.getPassword())) {
             throw new Exception("Invalid username/password");
         }
         model.put("message","Logged in Successfully");
-        model.put("token",savedUser.getUsername());
-        model.put("customer_id", String.valueOf(savedUser.getUserId()));
+        model.put("token", savedRegisterUser.getUsername());
+        model.put("customer_id", String.valueOf(savedRegisterUser.getCustomerId()));
         LocalDateTime rightNow = LocalDateTime.now();
-        UserRegistration currentUserSession= new UserRegistration(loginDTO.getCustomer_id(), loginDTO.getUsername(),rightNow );
-        userRegistrationRepo.save(currentUserSession);
+        CurrentUserSession currentUserSession= new CurrentUserSession(loginDTO.getCustomer_id(), loginDTO.getUsername(),rightNow );
+        currentUserSessionRepo.save(currentUserSession);
         return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
-    
-
     @DeleteMapping("/logout")
-    public ResponseEntity<String> logoutUser(@RequestParam String key) throws Exception {
+    public ResponseEntity<String> logoutUser(@RequestParam String key) throws UserException, LoginException {
         String response = loginService.signOut(key);
         return new ResponseEntity<String>(response,HttpStatus.OK) ;
     }
-
 }
