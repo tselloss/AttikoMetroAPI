@@ -73,9 +73,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public RegisterUser viewUser(Integer userId) throws CustomerException {
-        Optional<RegisterUser> cust = userRepo.findById(userId);
-        cust.orElseThrow(()-> new CustomerException("RegisterUser doesn't found..."));
-        return cust.get();
+        Optional<RegisterUser> user = userRepo.findById(userId);
+        user.orElseThrow(()-> new CustomerException("RegisterUser doesn't found..."));
+        return user.get();
 
     }
 
