@@ -43,6 +43,8 @@ public class LoginController {
         return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
+    
+
     @DeleteMapping("/logout")
     public ResponseEntity<String> logoutUser(@RequestParam String key) throws Exception {
         String response = loginService.signOut(key);
