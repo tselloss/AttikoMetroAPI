@@ -47,31 +47,6 @@ pipeline {
                 sh "/var/jenkins_home/workspace/trivy image ${JENKINS_IMAGE_NAME}"
             }
         }
-        
-       stage('Sonarqube Analysis') {
-            steps {
-                withSonarQubeEnv('sonar'){
-                sh '''mvn clean verify sonar:sonar -X \
-                -Dsonar.projectName=httpClientApp \
-                -Dsonar.java.binaries=. \
-                -Dsonar.projectKey=httpClientApp'''
-            }
-        }
-       }        
-
-        //  stage('Docker Build & Push') {
-        //     steps {
-        //         script{                      
-        //                 sh "docker login -u tselloss"
-        //             }
-        //         }
-        //     }
-        // }
-
-         stage('Build') {
-            steps {
-                sh "mvn clean package -DskipTests=true"
-            }
         }
         
    }
