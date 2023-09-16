@@ -51,7 +51,8 @@ pipeline {
        stage('Sonarqube Analysis') {
             steps {
                 withSonarQubeEnv('sonar'){
-                sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=httpClientApp \
+                sh '''mvn clean verify sonar:sonar -X \
+                -Dsonar.projectName=httpClientApp \
                 -Dsonar.java.binaries=. \
                 -Dsonar.projectKey=httpClientApp'''
             }
